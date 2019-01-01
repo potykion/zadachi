@@ -10,7 +10,7 @@ repos:
 
   - id: mypy
     name: mypy
-    entry: pipenv run mypy zadachi
+    entry: pipenv run mypy .
     pass_filenames: false
     language: system
 
@@ -22,7 +22,7 @@ repos:
 
   - id: black
     name: black
-    entry: pipenv run black zadachi
+    entry: pipenv run black .
     pass_filenames: false
     language: system
 

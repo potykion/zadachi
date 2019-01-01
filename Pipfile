@@ -21,6 +21,7 @@ black = "==18.9b0"
 pytest-aiohttp = "*"
 importlib-resources = "*"
 pytest-dotenv = "*"
+pytest-freezegun = "*"
 
 [requires]
 python_version = "3.6"

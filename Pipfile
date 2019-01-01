@@ -17,6 +17,7 @@ mypy = "*"
 pylint = "*"
 black = "==18.9b0"
 pytest-aiohttp = "*"
+importlib-resources = "*"
 
 [requires]
 python_version = "3.6"

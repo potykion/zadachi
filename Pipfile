@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aiohttp = "*"
+aiopg = "*"
+marshmallow = "*"
+attrs = "*"
+sqlalchemy = "*"
+
+[dev-packages]
+pytest = "*"
+pre-commit = "*"
+mypy = "*"
+pylint = "*"
+black = "==18.9b0"
+pytest-aiohttp = "*"
+
+[requires]
+python_version = "3.6"

@@ -1,4 +1,4 @@
 # zadachi
 
-Yet another task tracker
+Yet another task tracker & VueJS practice
 

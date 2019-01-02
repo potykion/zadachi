@@ -54,3 +54,12 @@ async def update_task_handler(request: web.Request) -> web.Response:
     await request["connection"].execute(query)
 
     return web.json_response({})
+
+
+async def delete_task_handler(request: web.Request) -> web.Response:
+    id_ = request.match_info["id"]
+
+    query = sa.delete(tables.task).where(tables.task.c.id == id_)
+    await request["connection"].execute(query)
+
+    return web.json_response({})

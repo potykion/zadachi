@@ -11,6 +11,7 @@ from zadachi.handlers import (
     list_tasks_handler,
     create_task_handler,
     update_task_handler,
+    delete_task_handler,
 )
 
 Handler = Callable[[web.Request], Awaitable[web.StreamResponse]]
@@ -56,6 +57,7 @@ def create_app() -> web.Application:
             web.get("/tasks/{date}", list_tasks_handler),
             web.post("/tasks/create", create_task_handler),
             web.post("/tasks/{id}/update", update_task_handler),
+            web.post("/tasks/{id}/delete", delete_task_handler),
         ]
     )
     app.cleanup_ctx.append(pg_engine)

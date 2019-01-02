@@ -86,3 +86,20 @@ async def test_update_task_handler(cli: TestClient, db: Engine, token: str) -> N
     task = Task(*db_task)
     assert task.title == new_data["title"]
     assert str(task.target_date) == new_data["target_date"]
+
+
+async def test_delete_task_handler(cli: TestClient, db: Engine, token: str) -> None:
+    tasks = [Task(title="Уборочка")]
+
+    schema: BaseSchema = TaskSchema()
+    serialized_tasks, _ = schema.dump(tasks, many=True)
+
+    db.execute(sa.insert(tables.task).values(serialized_tasks))
+
+    response: ClientResponse = await cli.post(
+        f"/tasks/{tasks[0].id}/delete", headers={"Authorization": token}
+    )
+    assert response.status == 200
+
+    db_task = db.execute(sa.select(["*"]).where(tables.task.c.id == tasks[0].id)).first()
+    assert not db_task

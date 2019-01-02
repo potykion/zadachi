@@ -6,7 +6,7 @@ from aiohttp.web_middlewares import middleware
 from aiopg.sa import create_engine
 
 from zadachi.config import DB_URL, JWT_SECRET, LOGIN_ENV
-from zadachi.handlers import login_via_env_handler, list_tasks_handler
+from zadachi.handlers import login_via_env_handler, list_tasks_handler, create_task_handler
 
 Handler = Callable[[web.Request], Awaitable[web.StreamResponse]]
 
@@ -49,6 +49,7 @@ def create_app() -> web.Application:
         [
             web.post("/login_via_env/{env}", login_via_env_handler),
             web.get("/tasks/{date}", list_tasks_handler),
+            web.post("/tasks/create", create_task_handler),
         ]
     )
     app.cleanup_ctx.append(pg_engine)

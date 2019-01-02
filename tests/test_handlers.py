@@ -40,7 +40,7 @@ async def test_list_tasks_handler(cli: TestClient, db: Engine, token: str) -> No
     db.execute(sa.insert(tables.task).values(serialized_tasks))
 
     response: ClientResponse = await cli.get(
-        f"/tasks/{datetime.utcnow().date()}", headers={"Authorization": token}
+        f"/tasks?target_date={datetime.utcnow().date()}", headers={"Authorization": token}
     )
     response_json = await response.json()
 

@@ -54,7 +54,7 @@ def create_app() -> web.Application:
     app.add_routes(
         [
             web.post("/login_via_env/{env}", login_via_env_handler),
-            web.get("/tasks/{date}", list_tasks_handler),
+            web.get("/tasks", list_tasks_handler),
             web.post("/tasks/create", create_task_handler),
             web.post("/tasks/{id}/update", update_task_handler),
             web.post("/tasks/{id}/delete", delete_task_handler),

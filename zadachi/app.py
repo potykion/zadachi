@@ -33,7 +33,7 @@ async def db_connection_middleware(request: web.Request, handler: Handler) -> we
 
 @middleware
 async def jwt_auth_middleware(request: web.Request, handler: Handler) -> web.StreamResponse:
-    ignored_request = request.path.startswith("/login_via_env/")
+    ignored_request = any([not request.path.startswith("/tasks/")])
     if ignored_request:
         return await handler(request)
 
@@ -58,6 +58,7 @@ def create_app() -> web.Application:
             web.post("/tasks/create", create_task_handler),
             web.post("/tasks/{id}/update", update_task_handler),
             web.post("/tasks/{id}/delete", delete_task_handler),
+            web.static("/", "static"),
         ]
     )
     app.cleanup_ctx.append(pg_engine)

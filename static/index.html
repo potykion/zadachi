@@ -17,12 +17,16 @@
         <div class="container">
             <ul class="task-list">
                 <li class="task-li" v-for="task in tasks">
-                    <input class="task" v-bind:value="task.title">
+                    <input 
+                        class="task" 
+                        v-model="task.title" 
+                        @change="taskChanged"
+                        v-focus
+                    >
                 </li>
             </ul>
         </div>
     </div>
-
 
     <!-- vuejs dev -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

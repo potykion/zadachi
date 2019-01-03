@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,16 +8,28 @@
     <link rel="stylesheet" type="text/css" href="/index.css">
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
 
-    <title>Title</title>
+    <title>zadachi</title>
 </head>
+
 <body>
 
+    <div id="app">
+        <div class="container">
+            <ul class="task-list">
+                <li class="task-li" v-for="task in tasks">
+                    <input class="task" v-bind:value="task.title">
+                </li>
+            </ul>
+        </div>
+    </div>
 
-<div class="container">
-    <ul class="task-list">
-        <li class="task">Уборочка</li>
-    </ul>
-</div>
+
+    <!-- vuejs dev -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- app -->
+    <script src="index.js"></script>
 
 </body>
+
 </html>

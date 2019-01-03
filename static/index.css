@@ -24,6 +24,11 @@ body {
 .task-list > li:before {
     content: "-";
     margin: 10px;
+    font-size: 28px;
+}
+
+.task-li {
+    padding: 15px;
 }
 
 .task-list {
@@ -31,7 +36,12 @@ body {
     list-style-type: none;
 }
 
+.task:focus {
+    outline: none;
+}
+
 .task {
-    padding: 10px;
+    border: none;
+    /*padding: 10px;*/
     font-size: 28px;
 }

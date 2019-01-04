@@ -16,8 +16,12 @@
     <div id="app">
         <div class="container">
             <ul class="task-list">
-                <li class="task-li" v-for="task in tasks">
-                    <input class="task" v-model="task.title" @change="taskChanged" v-focus>
+                <li v-for="task in tasks">
+                    <div class="task-li">
+                        <span>–</span>
+                        <textarea class="task" v-model="task.title" @change="taskChanged" @keydown.enter.prevent="taskChanged" @keydown="fit" v-focus></textarea>
+                    </div>
+
                 </li>
             </ul>
         </div>

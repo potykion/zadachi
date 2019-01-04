@@ -1,24 +1,22 @@
 body {
     margin: 0;
     padding: 0;
-
     background: #F7F5DC;
+}
 
+input, body, textarea {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     font-size: 1.2em;
+
 }
 
-input {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-    font-size: 1.2em;
+textarea {
+    overflow: hidden;
 }
 
-ul > li:before {
-    content: "-";
-    margin: 10px;
-    font-size: 28px;
+span {
+    margin: 0 5px;
 }
 
 .container {
@@ -35,9 +33,10 @@ ul > li:before {
     }
 }
 
-
 .task-li {
     padding: 15px;
+    display: flex;
+    align-items: center
 }
 
 .task-list {
@@ -51,5 +50,7 @@ ul > li:before {
 
 .task {
     border: none;
+    resize: none;
+
     width: 90%;
 }

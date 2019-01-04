@@ -13,13 +13,17 @@ var app = new Vue({
         ]
     },
     methods: {
-        taskChanged: async function (event) {
+        taskChanged: function (event) {
             this.appendBlank();
+            fixTextArea(event.target);
         },
         appendBlank: function () {
             if (this.lastTask.title != "") {
                 this.tasks = [...this.tasks, { title: "" }];
             }
+        },
+        fit: function (event) {
+            fixTextArea(event.target);
         }
     },
     computed: {
@@ -27,12 +31,17 @@ var app = new Vue({
             return this.tasks[this.tasks.length - 1];
         }
     },
-    // focus on last created input in list workaround
     directives: {
         focus: {
             inserted: function (el) {
+                fixTextArea(el);
                 el.focus();
             }
         }
     }
 });
+
+function fixTextArea(textArea) {
+    textArea.style.height = "1px";
+    textArea.style.height = (textArea.scrollHeight - 4) + "px";
+};

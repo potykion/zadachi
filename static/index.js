@@ -11,7 +11,7 @@ var app = new Vue({
     methods: {
         taskChanged: function (event) {
             this.appendBlank();
-            fixTextArea(event.target);
+            fitTextArea(event.target);
         },
         appendBlank: function () {
             if (this.lastTask.title !== "") {
@@ -19,7 +19,7 @@ var app = new Vue({
             }
         },
         fit: function (event) {
-            fixTextArea(event.target);
+            fitTextArea(event.target);
         },
         requestToken: function (event) {
             const env = event.target.value;
@@ -66,14 +66,14 @@ var app = new Vue({
     directives: {
         focus: {
             inserted: function (el) {
-                fixTextArea(el);
+                fitTextArea(el);
                 el.focus();
             }
         }
     }
 });
 
-function fixTextArea(textArea) {
+function fitTextArea(textArea) {
     textArea.style.height = "1px";
     textArea.style.height = (textArea.scrollHeight - 4) + "px";
 }

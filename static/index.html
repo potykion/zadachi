@@ -16,7 +16,7 @@
     <div id="app">
         <div class="container">
 
-            <div v-if="token">
+            <div v-if="authorized">
                 <ul class="task-list" v-if="tasksLoaded">
                     <li v-for="task in tasks">
                         <div class="task-li">

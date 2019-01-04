@@ -1,4 +1,4 @@
-let app = new Vue({
+var app = new Vue({
     el: '#app',
     data: {
         tasksLoaded: false,
@@ -6,7 +6,6 @@ let app = new Vue({
             {title: ""}
         ],
 
-        token: "",
         axiosInstance: null,
     },
     methods: {
@@ -27,10 +26,26 @@ let app = new Vue({
 
             axios.post(`/login_via_env/${env}`)
                 .then(function (response) {
-                    this.app.token = localStorage.token = response.data.token;
+                    const app = this.app;
+                    localStorage.token = response.data.token;
+                    app.setupAxios(localStorage.token);
+                    app.refreshTasks();
                 })
                 .catch(function (error) {
                     alert(error.response.data.error);
+                });
+        },
+        setupAxios: function (token) {
+            this.axiosInstance = axios.create({
+                headers: {"Authorization": `JWT ${token}`}
+            });
+        },
+        refreshTasks: function () {
+            this.axiosInstance.get(`/tasks`)
+                .then(function (response) {
+                    const app = this.app;
+                    app.tasks = [...response.data, ...app.tasks];
+                    app.tasksLoaded = true;
                 });
         }
     },
@@ -38,21 +53,14 @@ let app = new Vue({
         lastTask: function () {
             return this.tasks[this.tasks.length - 1];
         },
+        authorized: function () {
+            return this.axiosInstance !== null;
+        }
     },
     mounted: function () {
         if (localStorage.token) {
-            const token = this.token = localStorage.token;
-
-            this.axiosInstance = axios.create({
-                headers: {"Authorization": `JWT ${token}`}
-            });
-
-            this.axiosInstance.get(`/tasks`)
-                .then(function (response) {
-                    const app = this.app;
-                    app.tasks = [...response.data, ...app.tasks];
-                    app.tasksLoaded = true;
-                });
+            this.setupAxios(localStorage.token);
+            this.refreshTasks();
         }
     },
     directives: {

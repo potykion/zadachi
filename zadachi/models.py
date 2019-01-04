@@ -1,12 +1,9 @@
-import uuid
 from datetime import datetime
 from typing import Optional
 
 import attr
 
-
-def generate_uuid() -> str:
-    return str(uuid.uuid4())
+from zadachi.utils import generate_uuid
 
 
 @attr.s(auto_attribs=True)

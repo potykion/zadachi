@@ -1,9 +1,9 @@
 import sqlalchemy as sa
-from faker import Faker
 
 from zadachi.config import DB_URL
 from zadachi.models import Task
 from zadachi.schemas import TaskSchema
+from zadachi.utils import text_generator
 
 metadata = sa.MetaData()
 
@@ -26,16 +26,12 @@ def seed_db(count: int = 3) -> None:
     metadata.create_all(engine)
 
     with engine.connect() as connection:
-        faker = Faker("ru_RU")
-
         tasks_exist = connection.execute(tasks_count_query).scalar()
 
         if not tasks_exist:
             title_length = task.c.title.type.length
-            tasks = [
-                Task(title=faker.text(max_nb_chars=title_length))  # pylint: disable=no-member
-                for _ in range(count)
-            ]
+
+            tasks = [Task(title=text) for text in text_generator(count, title_length)]
             schema = TaskSchema()
             serialized_tasks, _ = schema.dump(tasks, many=True)
 

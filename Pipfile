@@ -11,6 +11,7 @@ attrs = "*"
 sqlalchemy = "*"
 python-dotenv = "*"
 pyjwt = "*"
+faker = "*"
 
 [dev-packages]
 pytest = "*"
@@ -22,7 +23,6 @@ pytest-aiohttp = "*"
 importlib-resources = "*"
 pytest-dotenv = "*"
 pytest-freezegun = "*"
-faker = "*"
 
 [requires]
 python_version = "3.6"

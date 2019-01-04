@@ -3,8 +3,22 @@ body {
     padding: 0;
 
     background: #F7F5DC;
-    font-family: 'Fira Sans', sans-serif;
 
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.2em;
+}
+
+input {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.2em;
+}
+
+ul > li:before {
+    content: "-";
+    margin: 10px;
+    font-size: 28px;
 }
 
 .container {
@@ -21,11 +35,6 @@ body {
     }
 }
 
-.task-list > li:before {
-    content: "-";
-    margin: 10px;
-    font-size: 28px;
-}
 
 .task-li {
     padding: 15px;
@@ -42,6 +51,5 @@ body {
 
 .task {
     border: none;
-    font-size: 28px;
     width: 90%;
 }

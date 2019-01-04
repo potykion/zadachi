@@ -10,7 +10,9 @@ var app = new Vue({
             { title: "rbcn_legals: migrate legals from gae" },
             { title: "rbcn_legals: frontend: legals list, contract creation" },
             { title: "" }
-        ]
+        ],
+
+        token: "",
     },
     methods: {
         taskChanged: function (event) {
@@ -24,11 +26,30 @@ var app = new Vue({
         },
         fit: function (event) {
             fixTextArea(event.target);
+        },
+        requestToken: function (event) {
+            const env = event.target.value;
+
+            axios.post(`/login_via_env/${env}`)
+                .then(function (response) {
+                    this.app.token = localStorage.token = response.data.token;
+                })
+                .catch(function (error) {
+                    alert(error.response.data.error);
+                });
         }
     },
     computed: {
         lastTask: function () {
             return this.tasks[this.tasks.length - 1];
+        },
+    },
+    mounted: function () {
+        if (localStorage.token) {
+            this.token = localStorage.token;
+
+            // request tasks
+            // axios.get()
         }
     },
     directives: {

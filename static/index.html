@@ -15,20 +15,31 @@
 
     <div id="app">
         <div class="container">
-            <ul class="task-list">
-                <li v-for="task in tasks">
-                    <div class="task-li">
-                        <span>–</span>
-                        <textarea class="task" v-model="task.title" @change="taskChanged" @keydown.enter.prevent="taskChanged" @keydown="fit" v-focus></textarea>
-                    </div>
 
-                </li>
-            </ul>
+            <div v-if="token">
+                <ul class="task-list">
+                    <li v-for="task in tasks">
+                        <div class="task-li">
+                            <span>–</span>
+                            <textarea class="task" v-model="task.title" @change="taskChanged" @keydown.enter.prevent="taskChanged" @keydown="fit" v-focus></textarea>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+
+            <div v-else>
+                <input id="enterAuth" type="password" placeholder="Enter auth env" @keydown.enter="requestToken">
+            </div>
+
         </div>
     </div>
 
     <!-- vuejs dev -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <!-- app -->
     <script src="index.js"></script>

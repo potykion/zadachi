@@ -44,13 +44,23 @@ span {
     list-style-type: none;
 }
 
-.task:focus {
+input, textarea:focus {
     outline: none;
 }
 
-.task {
+input, textarea {
     border: none;
     resize: none;
-
     width: 90%;
 }
+
+
+.loading-label {
+    text-align: center;
+    padding: 10px;
+}
+
+#enterAuth {
+    padding: 10px;
+}
+

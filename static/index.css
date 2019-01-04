@@ -42,6 +42,6 @@ body {
 
 .task {
     border: none;
-    /*padding: 10px;*/
     font-size: 28px;
+    width: 90%;
 }

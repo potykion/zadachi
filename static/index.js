@@ -1,18 +1,13 @@
-var app = new Vue({
+const app = new Vue({
     el: '#app',
     data: {
+        tasksLoaded: false,
         tasks: [
-            { title: "Уборочка" },
-            { title: "Проездной" },
-            { title: "THIS IS VEEEEEEEEEEEEEEEEEEEEEEERY LONG TASK" },
-            { title: "resto: orders_lite totals = auto report" },
-            { title: "rbcn_legals: features discuss / complete migration" },
-            { title: "rbcn_legals: migrate legals from gae" },
-            { title: "rbcn_legals: frontend: legals list, contract creation" },
-            { title: "" }
+            {title: ""}
         ],
 
         token: "",
+        axiosInstance: null,
     },
     methods: {
         taskChanged: function (event) {
@@ -20,8 +15,8 @@ var app = new Vue({
             fixTextArea(event.target);
         },
         appendBlank: function () {
-            if (this.lastTask.title != "") {
-                this.tasks = [...this.tasks, { title: "" }];
+            if (this.lastTask.title !== "") {
+                this.tasks = [...this.tasks, {title: ""}];
             }
         },
         fit: function (event) {
@@ -46,10 +41,18 @@ var app = new Vue({
     },
     mounted: function () {
         if (localStorage.token) {
-            this.token = localStorage.token;
+            const token = this.token = localStorage.token;
 
-            // request tasks
-            // axios.get()
+            this.axiosInstance = axios.create({
+                headers: {"Authorization": `JWT ${token}`}
+            });
+
+            this.axiosInstance.get(`/tasks`)
+                .then(function (response) {
+                    const app = this.app;
+                    app.tasks = [...response.data, ...app.tasks];
+                    app.tasksLoaded = true;
+                });
         }
     },
     directives: {
@@ -65,4 +68,4 @@ var app = new Vue({
 function fixTextArea(textArea) {
     textArea.style.height = "1px";
     textArea.style.height = (textArea.scrollHeight - 4) + "px";
-};
+}

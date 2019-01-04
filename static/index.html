@@ -17,7 +17,7 @@
         <div class="container">
 
             <div v-if="token">
-                <ul class="task-list">
+                <ul class="task-list" v-if="tasksLoaded">
                     <li v-for="task in tasks">
                         <div class="task-li">
                             <span>–</span>
@@ -26,6 +26,7 @@
 
                     </li>
                 </ul>
+                <div v-else class="loading-label">Ща все будет...</div>
             </div>
 
             <div v-else>

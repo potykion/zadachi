@@ -59,19 +59,47 @@ const store = new Vuex.Store({
     }
 });
 
+Vue.component(
+    "task-item", {
+
+        props: ["title"],
+
+        template: `<li>
+            <div class="task-li">
+                <span>–</span>
+                <textarea class="task" 
+                    :value="title"
+                    @input="$emit('update:title', $event.target.value)"
+                    
+                    @change="taskChanged" 
+                    @keydown.enter.prevent="taskChanged" 
+                    @keydown="fit" 
+                    
+                    v-focus
+                    ></textarea>
+            </div>
+        </li>`,
+
+        methods: {
+            taskChanged: function (event) {
+                if (this.$store.getters.lastTask.title !== "") {
+                    this.$store.commit("appendBlankTask");
+                }
+                fitTextArea(event.target);
+            },
+            fit: function (event) {
+                fitTextArea(event.target);
+            },
+
+        }
+    }
+);
+
+
 var app = new Vue({
     el: '#app',
     store,
     methods: {
-        fit: function (event) {
-            fitTextArea(event.target);
-        },
-        taskChanged: function (event) {
-            if (store.getters.lastTask.title !== "") {
-                store.commit("appendBlankTask");
-            }
-            fitTextArea(event.target);
-        },
         requestToken: function (event) {
             store.dispatch("requestToken", event.target.value);
         },
@@ -93,15 +121,16 @@ var app = new Vue({
             store.dispatch("refreshTasks");
         }
     },
-    directives: {
-        focus: {
-            inserted: function (el) {
-                fitTextArea(el);
-                el.focus();
-            }
+});
+
+Vue.directive(
+    "focus", {
+        inserted: function (el) {
+            fitTextArea(el);
+            el.focus();
         }
     }
-});
+);
 
 function fitTextArea(textArea) {
     textArea.style.height = "1px";

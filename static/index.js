@@ -62,7 +62,7 @@ const store = new Vuex.Store({
 Vue.component(
     "task-item", {
 
-        props: ["title"],
+        props: ["title", "id"],
 
         template: `<li>
             <div class="task-li">

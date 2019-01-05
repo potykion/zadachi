@@ -18,7 +18,7 @@
 
             <div v-if="authorized">
                 <ul class="task-list" v-if="tasksLoaded">
-                    <task-item v-for="task in tasks" :title.sync="task.title"></task-item>
+                    <task-item v-for="task in tasks" v-bind.sync="task"></task-item>
                 </ul>
                 <div v-else class="loading-label">Ща все будет...</div>
             </div>

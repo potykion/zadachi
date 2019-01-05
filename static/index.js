@@ -10,9 +10,7 @@ const store = new Vuex.Store({
 
     mutations: {
         appendBlankTask(state) {
-            if (this.getters.lastTask.title !== "") {
-                state.tasks = [...state.tasks, {title: ""}];
-            }
+            state.tasks = [...state.tasks, {title: ""}];
         },
         setupAxios(state, token) {
             state.axiosInstance = axios.create({
@@ -20,7 +18,7 @@ const store = new Vuex.Store({
             });
         },
         setTasks(state, tasks) {
-            state.tasks = [...state.tasks, ...tasks];
+            state.tasks = [...tasks, ...state.tasks];
         },
         setTasksLoaded(state) {
             state.tasksLoaded = true;
@@ -69,7 +67,9 @@ var app = new Vue({
             fitTextArea(event.target);
         },
         taskChanged: function (event) {
-            store.commit("appendBlankTask");
+            if (store.getters.lastTask.title !== "") {
+                store.commit("appendBlankTask");
+            }
             fitTextArea(event.target);
         },
         requestToken: function (event) {

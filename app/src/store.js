@@ -19,6 +19,7 @@ export default new Vuex.Store({
             state.tasks = [...state.tasks, {title: ""}];
         },
         setupAxios(state, token) {
+            console.log(process.env);
             state.axiosInstance = axios.create({
                 headers: {"Authorization": `JWT ${token}`}
             });

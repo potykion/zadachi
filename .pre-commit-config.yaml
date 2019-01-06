@@ -26,3 +26,10 @@ repos:
     pass_filenames: false
     language: system
 
+  - id: build-js
+    name: build-js
+    entry: pipenv run python scripts/build_js.py
+    pass_filenames: false
+    language: system
+    verbose: true
+

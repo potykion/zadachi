@@ -31,7 +31,6 @@ const store = new Vuex.Store({
                 .then(function (response) {
                     const token = localStorage.token = response.data.token;
                     commit("setupAxios", token);
-                    dispatch("refreshTasks");
                 })
                 .catch(function (error) {
                     alert(error.response.data.error);
@@ -109,7 +108,9 @@ Vue.component("task-list", {
         tasks() {
             return this.$store.state.tasks;
         }
-
+    },
+    mounted: function () {
+        this.$store.dispatch("refreshTasks");
     }
 });
 
@@ -133,20 +134,18 @@ Vue.component("auth-required", {
         authorized() {
             return this.$store.getters.authorized;
         },
+    },
+    mounted: function () {
+        if (localStorage.token) {
+            this.$store.commit("setupAxios", localStorage.token);
+        }
+    },
 
-    }
 });
-
 
 var app = new Vue({
     el: '#app',
     store,
-    mounted: function () {
-        if (localStorage.token) {
-            store.commit("setupAxios", localStorage.token);
-            store.dispatch("refreshTasks");
-        }
-    },
 });
 
 Vue.directive(

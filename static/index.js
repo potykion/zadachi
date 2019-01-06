@@ -96,18 +96,35 @@ Vue.component(
 );
 
 
-var app = new Vue({
-    el: '#app',
-    store,
+Vue.component("auth-required", {
+    template: `<div>
+            <div v-if="authorized">
+                <slot></slot>
+            </div>
+    
+            <div v-else>
+                <input id="enterAuth" type="password" placeholder="Enter auth env" @keydown.enter="requestToken">
+            </div>
+        </div>`,
     methods: {
         requestToken: function (event) {
-            store.dispatch("requestToken", event.target.value);
+            this.$store.dispatch("requestToken", event.target.value);
         },
     },
     computed: {
         authorized() {
-            return store.getters.authorized;
+            return this.$store.getters.authorized;
         },
+
+    }
+});
+
+
+var app = new Vue({
+    el: '#app',
+    store,
+    methods: {},
+    computed: {
         tasksLoaded() {
             return store.state.tasksLoaded;
         },

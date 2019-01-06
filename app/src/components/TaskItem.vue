@@ -36,5 +36,18 @@
 </script>
 
 <style scoped>
+    .task-li {
+        padding: 15px;
+        display: flex;
+        align-items: center
+    }
 
+    span {
+        margin: 0 5px;
+    }
+
+    textarea {
+        overflow: hidden;
+        resize: none;
+    }
 </style>

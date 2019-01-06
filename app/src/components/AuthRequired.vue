@@ -33,7 +33,9 @@
 </script>
 
 <style scoped>
-
+    #enterAuth {
+        padding: 10px;
+    }
 </style>
 
 

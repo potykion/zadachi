@@ -26,22 +26,13 @@
 body {
     margin: 0;
     padding: 0;
-    background: #F7F5DC;
+    background: #f7ebeb;
 }
 
 input, body, textarea {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     font-size: 1.2em;
-
-}
-
-textarea {
-    overflow: hidden;
-}
-
-span {
-    margin: 0 5px;
 }
 
 .container {
@@ -57,34 +48,12 @@ span {
     }
 }
 
-.task-li {
-    padding: 15px;
-    display: flex;
-    align-items: center
-}
-
-.task-list {
-    padding: 0;
-    list-style-type: none;
-}
-
 input, textarea:focus {
     outline: none;
 }
 
 input, textarea {
     border: none;
-    resize: none;
     width: 90%;
-}
-
-
-.loading-label {
-    text-align: center;
-    padding: 10px;
-}
-
-#enterAuth {
-    padding: 10px;
 }
 </style>

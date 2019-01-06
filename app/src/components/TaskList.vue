@@ -30,6 +30,14 @@
 </script>
 
 <style scoped>
+    .loading-label {
+        text-align: center;
+        padding: 10px;
+    }
 
+    .task-list {
+        padding: 0;
+        list-style-type: none;
+    }
 </style>
 

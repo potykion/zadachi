@@ -95,6 +95,24 @@ Vue.component(
     }
 );
 
+Vue.component("task-list", {
+    template: `<div>
+       <ul class="task-list" v-if="tasksLoaded">
+            <task-item v-for="task in tasks" v-bind.sync="task"></task-item>
+        </ul>
+        <div v-else class="loading-label">Ща все будет...</div>
+    </div>`,
+    computed: {
+        tasksLoaded() {
+            return this.$store.state.tasksLoaded;
+        },
+        tasks() {
+            return this.$store.state.tasks;
+        }
+
+    }
+});
+
 
 Vue.component("auth-required", {
     template: `<div>
@@ -123,15 +141,6 @@ Vue.component("auth-required", {
 var app = new Vue({
     el: '#app',
     store,
-    methods: {},
-    computed: {
-        tasksLoaded() {
-            return store.state.tasksLoaded;
-        },
-        tasks() {
-            return store.state.tasks;
-        }
-    },
     mounted: function () {
         if (localStorage.token) {
             store.commit("setupAxios", localStorage.token);

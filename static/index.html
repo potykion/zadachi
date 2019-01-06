@@ -15,14 +15,9 @@
 
     <div id="app">
         <div class="container">
-
             <auth-required>
-                <ul class="task-list" v-if="tasksLoaded">
-                    <task-item v-for="task in tasks" v-bind.sync="task"></task-item>
-                </ul>
-                <div v-else class="loading-label">Ща все будет...</div>
+                <task-list></task-list>
             </auth-required>
-
         </div>
     </div>
 

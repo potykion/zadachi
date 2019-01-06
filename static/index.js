@@ -156,9 +156,7 @@ Vue.component("app", {
 
 new Vue({
     store,
-    render: function (h) {
-        return h("app");
-    }
+    render: h => h("app")
 }).$mount("#app");
 
 Vue.directive(

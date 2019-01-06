@@ -17,6 +17,8 @@
 </template>
 
 <script>
+    import {fitTextArea} from "../utils";
+
     export default {
         name: "TaskItem",
         props: ["title", "id"],

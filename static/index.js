@@ -143,10 +143,23 @@ Vue.component("auth-required", {
 
 });
 
-var app = new Vue({
-    el: '#app',
-    store,
+
+Vue.component("app", {
+    template: `<div id="app">
+        <div class="container">
+            <auth-required>
+                <task-list></task-list>
+            </auth-required>    
+        </div>
+    </div>`,
 });
+
+new Vue({
+    store,
+    render: function (h) {
+        return h("app");
+    }
+}).$mount("#app");
 
 Vue.directive(
     "focus", {

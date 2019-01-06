@@ -58,7 +58,7 @@ def create_app() -> web.Application:
             web.post("/tasks/create", create_task_handler),
             web.post("/tasks/{id}/update", update_task_handler),
             web.post("/tasks/{id}/delete", delete_task_handler),
-            web.static("/", "static"),
+            web.static("/", "app/dist"),
         ]
     )
     app.cleanup_ctx.append(pg_engine)

@@ -1,3 +1,28 @@
+<template>
+    <div id="app">
+        <div class="container">
+            <AuthRequired>
+                <TaskList></TaskList>
+            </AuthRequired>
+        </div>
+    </div>
+</template>
+
+<script>
+
+    import AuthRequired from "./components/AuthRequired";
+    import TaskList from "./components/TaskList";
+
+    export default {
+        name: "app",
+        components: {
+            AuthRequired,
+            TaskList
+        }
+    };
+</script>
+
+<style>
 body {
     margin: 0;
     padding: 0;
@@ -62,4 +87,4 @@ input, textarea {
 #enterAuth {
     padding: 10px;
 }
-
+</style>

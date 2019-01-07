@@ -2,7 +2,13 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from 'axios'
 
+
 Vue.use(Vuex);
+
+const BASE_URL = process.env.NODE_ENV === 'production'
+    ? ""
+    : process.env.VUE_APP_DEBUG_SERVER;
+
 
 export default new Vuex.Store({
     state: {
@@ -19,9 +25,9 @@ export default new Vuex.Store({
             state.tasks = [...state.tasks, {title: ""}];
         },
         setupAxios(state, token) {
-            console.log(process.env);
             state.axiosInstance = axios.create({
-                headers: {"Authorization": `JWT ${token}`}
+                headers: {"Authorization": `JWT ${token}`},
+                baseURL: BASE_URL,
             });
         },
         setTasks(state, tasks) {
@@ -34,7 +40,7 @@ export default new Vuex.Store({
 
     actions: {
         requestToken({commit, dispatch}, env) {
-            axios.post(`/login_via_env/${env}`)
+            axios.post(`${BASE_URL}/login_via_env/${env}`)
                 .then(function (response) {
                     const token = localStorage.token = response.data.token;
                     commit("setupAxios", token);

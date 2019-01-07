@@ -12,6 +12,7 @@ sqlalchemy = "*"
 python-dotenv = "*"
 pyjwt = "*"
 faker = "*"
+aiohttp-cors = "*"
 
 [dev-packages]
 pytest = "*"

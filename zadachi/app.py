@@ -1,8 +1,10 @@
-from typing import AsyncGenerator, Awaitable, Callable
+from typing import AsyncGenerator, Awaitable, Callable, List
 
+import aiohttp_cors
 import jwt
 from aiohttp import web
 from aiohttp.web_middlewares import middleware
+from aiohttp.web_routedef import AbstractRouteDef
 from aiopg.sa import create_engine
 
 from zadachi.config import DB_URL, JWT_SECRET, LOGIN_ENV, DEBUG
@@ -49,17 +51,36 @@ async def jwt_auth_middleware(request: web.Request, handler: Handler) -> web.Str
     return await handler(request)
 
 
+routes: List[AbstractRouteDef] = [
+    web.post("/login_via_env/{env}", login_via_env_handler),
+    web.get("/tasks", list_tasks_handler),
+    web.post("/tasks/create", create_task_handler),
+    web.post("/tasks/{id}/update", update_task_handler),
+    web.post("/tasks/{id}/delete", delete_task_handler),
+]
+if not DEBUG:
+    routes.append(web.static("/", "app/dist"))
+
+
 def create_app() -> web.Application:
     app = web.Application(middlewares=[db_connection_middleware, jwt_auth_middleware], debug=DEBUG)
-    app.add_routes(
-        [
-            web.post("/login_via_env/{env}", login_via_env_handler),
-            web.get("/tasks", list_tasks_handler),
-            web.post("/tasks/create", create_task_handler),
-            web.post("/tasks/{id}/update", update_task_handler),
-            web.post("/tasks/{id}/delete", delete_task_handler),
-            web.static("/", "app/dist"),
-        ]
-    )
+    app.add_routes(routes)
     app.cleanup_ctx.append(pg_engine)
+
+    set_cors_for_all_routes(app)
+
     return app
+
+
+def set_cors_for_all_routes(app: web.Application) -> None:
+    cors = aiohttp_cors.setup(
+        app,
+        defaults={
+            "*": aiohttp_cors.ResourceOptions(
+                allow_credentials=True, expose_headers="*", allow_headers="*"
+            )
+        },
+    )
+    # Configure CORS on all routes.
+    for route in list(app.router.routes()):
+        cors.add(route)

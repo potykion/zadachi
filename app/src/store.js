@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from 'axios'
-
+import uuidv4 from "uuid/v4";
 
 Vue.use(Vuex);
 
@@ -9,20 +9,16 @@ const BASE_URL = process.env.NODE_ENV === 'production'
     ? ""
     : process.env.VUE_APP_DEBUG_SERVER;
 
-
 export default new Vuex.Store({
     state: {
         tasksLoaded: false,
-        tasks: [
-            {title: ""}
-        ],
-
+        tasks: [],
         axiosInstance: null,
     },
 
     mutations: {
         appendBlankTask(state) {
-            state.tasks = [...state.tasks, {title: ""}];
+            state.tasks = [...state.tasks, {title: "", id: uuidv4()}];
         },
         setupAxios(state, token) {
             state.axiosInstance = axios.create({
@@ -49,7 +45,6 @@ export default new Vuex.Store({
                     alert(error.response.data.error);
                 });
         },
-
         refreshTasks({commit, state}) {
             state.axiosInstance.get(`/tasks`)
                 .then(function (response) {
@@ -63,10 +58,8 @@ export default new Vuex.Store({
         lastTask: state => {
             return state.tasks[state.tasks.length - 1];
         },
-
         authorized: state => {
             return state.axiosInstance !== null
         }
-
     }
 });

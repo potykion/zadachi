@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul class="task-list" v-if="tasksLoaded">
-            <TaskItem v-for="task in tasks" v-bind.sync="task"></TaskItem>
+            <TaskItem v-for="task in tasks" :key="task.id" v-bind.sync="task"></TaskItem>
         </ul>
         <div v-else class="loading-label">Ща все будет...</div>
     </div>
@@ -24,6 +24,7 @@
             }
         },
         mounted: function () {
+            this.$store.commit("appendBlankTask");
             this.$store.dispatch("refreshTasks");
         }
     }

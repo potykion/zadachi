@@ -42,7 +42,7 @@ async def create_task_handler(request: web.Request) -> web.Response:
     query = sa.insert(tables.task).values(task_data)
     await request["connection"].execute(query)
 
-    return web.json_response({"id": task_data["id"]})
+    return web.json_response(task_data)
 
 
 async def update_task_handler(request: web.Request) -> web.Response:

@@ -35,7 +35,9 @@ async def db_connection_middleware(request: web.Request, handler: Handler) -> we
 
 @middleware
 async def jwt_auth_middleware(request: web.Request, handler: Handler) -> web.StreamResponse:
-    ignored_request = any([not request.path.startswith("/tasks/")])
+    ignored_request = any(
+        [not request.path.startswith("/tasks/"), request.method not in ["GET", "POST"]]
+    )
     if ignored_request:
         return await handler(request)
 

@@ -18,7 +18,7 @@ export default new Vuex.Store({
 
     mutations: {
         appendBlankTask(state) {
-            state.tasks = [...state.tasks, {title: "", id: uuidv4()}];
+            state.tasks = [...state.tasks, {title: "", id: uuidv4(), new: true}];
         },
         setupAxios(state, token) {
             state.axiosInstance = axios.create({
@@ -31,6 +31,18 @@ export default new Vuex.Store({
         },
         setTasksLoaded(state) {
             state.tasksLoaded = true;
+        },
+        setCreatedTask(state, {oldTask, newTask}) {
+            const oldTaskIndex = this.getters.getTaskIndex(oldTask.id);
+
+            state.tasks = [
+                ...state.tasks.slice(0, oldTaskIndex),
+                newTask,
+                ...state.tasks.slice(oldTaskIndex - state.tasks.length + 1)
+            ];
+        },
+        setTaskNotNew(state, task) {
+            task.new = false;
         }
     },
 
@@ -51,6 +63,14 @@ export default new Vuex.Store({
                     commit("setTasks", response.data);
                     commit("setTasksLoaded");
                 });
+        },
+        createTask({commit, state}, task) {
+            commit("setTaskNotNew", task);
+
+            state.axiosInstance.post(`/tasks/create`, task)
+                .then(function (response) {
+                    commit("setCreatedTask", {oldTask: task, newTask: response.data});
+                });
         }
     },
 
@@ -60,6 +80,12 @@ export default new Vuex.Store({
         },
         authorized: state => {
             return state.axiosInstance !== null
+        },
+        getTaskById: state => id => {
+            return state.tasks.find(task => task.id === id);
+        },
+        getTaskIndex: state => id => {
+            return state.tasks.findIndex(task => task.id === id);
         }
     }
 });

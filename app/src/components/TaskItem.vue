@@ -27,6 +27,12 @@
                 if (this.$store.getters.lastTask.title !== "") {
                     this.$store.commit("appendBlankTask");
                 }
+
+                const task = this.$store.getters.getTaskById(this.id);
+                if (task.title !== "" && task.new) {
+                    this.$store.dispatch("createTask", task);
+                }
+
                 fitTextArea(event.target);
             },
             fit: function (event) {

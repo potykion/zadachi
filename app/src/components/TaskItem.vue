@@ -29,8 +29,12 @@
                 }
 
                 const task = this.$store.getters.getTaskById(this.id);
-                if (task.title !== "" && task.new) {
-                    this.$store.dispatch("createTask", task);
+                if (task.title !== "") {
+                    if (task.new) {
+                        this.$store.dispatch("createTask", task);
+                    } else {
+                        this.$store.dispatch("updateTask", task);
+                    }
                 }
 
                 fitTextArea(event.target);

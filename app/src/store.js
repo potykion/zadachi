@@ -71,6 +71,9 @@ export default new Vuex.Store({
                 .then(function (response) {
                     commit("setCreatedTask", {oldTask: task, newTask: response.data});
                 });
+        },
+        updateTask({state}, task) {
+            state.axiosInstance.post(`/tasks/${task.id}/update`, task);
         }
     },
 

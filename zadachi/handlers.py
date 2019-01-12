@@ -22,7 +22,11 @@ async def login_via_env_handler(request: web.Request) -> web.Response:
 async def list_tasks_handler(request: web.Request) -> web.Response:
     target_date = request.query.get("target_date") or datetime.utcnow().date()
 
-    query = sa.select(["*"]).where(sa.func.DATE(tables.task.c.target_date) == target_date)
+    query = (
+        sa.select(["*"])
+        .where(sa.func.DATE(tables.task.c.target_date) == target_date)
+        .order_by(tables.task.c.created_date)
+    )
     db_tasks = await request["connection"].execute(query)
 
     schema: BaseSchema = TaskSchema()

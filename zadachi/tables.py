@@ -11,7 +11,7 @@ task = sa.Table(
     "task",
     metadata,
     sa.Column("id", sa.String(64), primary_key=True),
-    sa.Column("title", sa.String(128), nullable=False),
+    sa.Column("title", sa.String(256), nullable=False),
     sa.Column("tag", sa.String(128)),
     sa.Column("created_date", sa.DateTime, nullable=False),
     sa.Column("target_date", sa.DateTime, nullable=False),

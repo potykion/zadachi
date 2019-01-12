@@ -43,7 +43,14 @@ export default new Vuex.Store({
         },
         setTaskNotNew(state, task) {
             task.new = false;
+        },
+        setTaskCompleted(state, task) {
+            task.completed_date = new Date();
+        },
+        setTaskIncomplete(state, task) {
+            task.completed_date = null;
         }
+
     },
 
     actions: {
@@ -73,8 +80,17 @@ export default new Vuex.Store({
                 });
         },
         updateTask({state}, task) {
-            state.axiosInstance.post(`/tasks/${task.id}/update`, task);
+            state.axiosInstance.post(`/tasks/${task.id}/update`, {title: task.title});
+        },
+        completeTask({commit, state}, task) {
+            commit("setTaskCompleted", task);
+            state.axiosInstance.post(`/tasks/${task.id}/update`, {completed_date: task.completed_date});
+        },
+        resetTask({commit, state}, task) {
+            commit("setTaskIncomplete", task);
+            state.axiosInstance.post(`/tasks/${task.id}/update`, {completed_date: task.completed_date});
         }
+
     },
 
     getters: {

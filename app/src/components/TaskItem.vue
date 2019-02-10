@@ -11,27 +11,34 @@
                       v-focus
             ></textarea>
 
-            <textarea class="task" v-else
-                      :value="title"
-                      @input="$emit('update:title', $event.target.value)"
+                <textarea class="task" v-else
+                          :value="title"
+                          @input="$emit('update:title', $event.target.value)"
 
-                      @change="taskChanged"
-                      @keydown.enter.prevent="taskChanged"
-                      @keydown="fit"
+                          @change="taskChanged"
+                          @keydown.enter.prevent="taskChanged"
+                          @keydown="fit"
 
-                      @dblclick="completeTask"
+                          @dblclick="completeTask"
 
-                      v-focus
-            ></textarea>
+                          v-focus
+                ></textarea>
+
+<!--            <div>-->
+<!--                <flat-pickr placeholder="2019-02-10"></flat-pickr>-->
+<!--            </div>-->
+
         </div>
     </li>
 </template>
 
 <script>
     import {fitTextArea} from "../utils";
+    import FlatPickr from "vue-flatpickr-component/src/component";
 
     export default {
         name: "TaskItem",
+        components: {FlatPickr},
         props: ["title", "id", "completed_date"],
         methods: {
             taskChanged: function (event) {
@@ -71,7 +78,7 @@
 
 <style scoped>
     .task-li {
-        padding: 15px;
+        padding: 15px 0 15px 15px;
         display: flex;
         align-items: center;
 

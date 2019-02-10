@@ -14,6 +14,7 @@ export default new Vuex.Store({
         tasksLoaded: false,
         tasks: [],
         axiosInstance: null,
+        currentDate: Date.now(),
     },
 
     mutations: {

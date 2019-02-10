@@ -2,6 +2,7 @@
     <div id="app">
         <div class="container">
             <AuthRequired>
+                <DateRow></DateRow>
                 <TaskList></TaskList>
             </AuthRequired>
         </div>
@@ -12,13 +13,17 @@
 
     import AuthRequired from "./components/AuthRequired";
     import TaskList from "./components/TaskList";
+    import DateRow from "./components/DateRow";
+    import {mapState} from "vuex";
 
     export default {
         name: "app",
         components: {
+            DateRow,
             AuthRequired,
             TaskList
-        }
+        },
+
     };
 </script>
 
